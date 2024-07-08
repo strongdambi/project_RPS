@@ -11,21 +11,25 @@
 </head> 
 
 <body style="background-image: url('https://i.namu.wiki/i/Qw8ZXranth2HM701-em_LaH1dt9rbxSbgq9X5L2mhz15PXyt5V-5HzSuTFlJm9RmpiLxXUnE6ne0AM7gFWKojAZgaW_wiDdFRWvXZPS5ZYyk8dPFBCghNBZZqfP8JF5_9aIENZimQn-xp6YwYdRoMA.webp'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+
   <div class="contentbox" style="margin-top: 100px; margin-bottom: 50px;">
-  <!-- 가위바위보 버튼 그룹 -->
+
+<!-- 가위바위보 버튼 그룹 -->
     <div class="btn-group" role="group" style="width: 50%; height: 300px; margin: 0 auto; display: flex; margin-bottom: 50px;">
-      <button type="button" class="btn btn-danger" style="font-size: 100px;"><b>✌️</b></button>
+      <button type="button" class="btn btn-danger" id="liveToastBtn" style="font-size: 100px;"><b>✌️</b></button>
       <button type="button" class="btn btn-warning" style="font-size: 100px">✊</button>
       <button type="button" class="btn btn-primary" style="font-size: 100px">✋</button>
     </div>
-  <!-- 승패무Count -->
+
+<!-- 승패무Count -->
     <div class="alert alert-primary" role="alert" style="width:50%; margin: 0 auto; display: flex; justify-content: center; text-align: center;">
       <span>승:</span>
       <span>패:</span>
       <span>무:</span>
     </div>
   </div>
-  <!-- 결과 표 클래스, 첫 행을 제외한 나머지는 databas.db 의 game_result 에서 가져올것 -->
+
+<!-- 결과 표 클래스, 첫 행을 제외한 나머지는 databas.db 의 game_result 에서 가져올것 -->
   <table class="table table-striped" style="width: 50%; margin: 0 auto">
     <thead>
       <tr>
@@ -57,6 +61,7 @@
     </tbody>
   </table>
 
+<!-- 자바스크립트 입력 -->
     <script>
         
     </script>

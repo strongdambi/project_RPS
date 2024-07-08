@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import random
 import os
 from flask_sqlalchemy import SQLAlchemy
@@ -9,6 +9,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'da
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 class GameResult(db.Model):
     index = db.Column(db.Integer, primary_key=True)
