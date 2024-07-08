@@ -43,5 +43,6 @@ def game(user):
         db.session.add(new_game_result)
         db.session.commit()
 
+
 if __name__ == "__main__":
     app.run()
