@@ -11,24 +11,38 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-@app.route('/')
-def home():
-    results = GameResult.query.all()
-    return render_template('index.html', results=results)
-
-@app.route('/play', methods=['POST'])
-def play():
-    user_choice = request.form['user_choice']
-    result = game(user_choice)
-    return render_template('index.html', results=result)
-
-
+#  가독성을 위해 db 위치 이동
 class GameResult(db.Model):
     index = db.Column(db.Integer, primary_key=True)
     com = db.Column(db.String, nullable=False)
     user = db.Column(db.String, nullable=False)
     result = db.Column(db.String, nullable=False)
 
+with app.app_context():
+    db.create_all()
+
+@app.route('/')
+def home():
+    results = GameResult.query.all()
+    # 승무패 카운트
+    wins = GameResult.query.filter_by(result='승').count()
+    draws = GameResult.query.filter_by(result='무').count()
+    losses = GameResult.query.filter_by(result='패').count()
+
+    return render_template('index.html', results=results, wins=wins, draws=draws, losses=losses)
+
+@app.route('/play', methods=['POST'])
+def play():
+    user_choice = request.form['user_choice']  # 선택한 값(클릭)을 form 데이터에서 가져옴
+    result = game(user_choice)
+
+    # 테이블에서 모든 데이터를 가져온 후 승무패 카운트
+    results = GameResult.query.all()
+    wins = GameResult.query.filter_by(result='승').count()
+    draws = GameResult.query.filter_by(result='무').count()
+    losses = GameResult.query.filter_by(result='패').count()
+
+    return render_template('index.html', results=results, wins=wins, draws=draws, losses=losses)
 
 def game(user):
     # 가위바위보
@@ -49,15 +63,13 @@ def game(user):
     with app.app_context():
         max_index = db.session.query(db.func.max(GameResult.index)).scalar()
         if max_index is None:
-            max_index = 1
+            max_index = 0  # 0으로 수정
         new_index = max_index + 1
 
 # 지정 인덱스로 결과 입력
-        new_game_result = GameResult(
-            index=new_index, com=com, user=user, result=result)
+        new_game_result = GameResult(index=new_index, com=com, user=user, result=result)
         db.session.add(new_game_result)
         db.session.commit()
-
 
 if __name__ == "__main__":
     app.run()

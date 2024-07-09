@@ -19,19 +19,20 @@
     <form action="/play" method="POST">
       <div class="btn-group" role="group"
         style="width: 50%; height: 300px; margin: 0 auto; display: flex; margin-bottom: 50px;">
-        <button name="user_choice" value="가위" type="submit" class="btn btn-danger" id="scissor" style="font-size: 100px;">✌️</button>
-        <button name="user_choice" value="바위" type="submit" class="btn btn-warning" id="rock" style="font-size: 100px">✊</button>
-        <button name="user_choice" value="보" type="submit" class="btn btn-primary" id="paper" style="font-size: 100px">✋</button>
+        <button name="user_choice" value="가위" type="submit" class="btn btn-danger" id="scissor"
+          style="font-size: 100px;">✌️</button>
+        <button name="user_choice" value="바위" type="submit" class="btn btn-warning" id="rock"
+          style="font-size: 100px">✊</button>
+        <button name="user_choice" value="보" type="submit" class="btn btn-primary" id="paper"
+          style="font-size: 100px">✋</button>
       </div>
     </form>
 
-    
+
     <!-- 승패무Count -->
     <div class="alert alert-primary" role="alert"
       style="width:50%; margin: 0 auto; display: flex; justify-content: center; text-align: center;">
-      <span>승:</span>
-      <span>패:</span>
-      <span>무:</span>
+      <span>{{ wins }}승 | {{ losses }}패 | {{ draws }}무</span>
     </div>
   </div>
 
