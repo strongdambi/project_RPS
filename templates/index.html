@@ -34,46 +34,38 @@
       <p>컴퓨터 선택: {{ com_choice }}</p>
       <p>결과: {{ result }}</p>
     </div>
-   
 
-  <!-- 승패무Count -->
-  <div class="alert alert-primary" role="alert"
-    style="width:50%; margin: 0 auto; display: flex; justify-content: center; text-align: center;">
-    <span>{{ wins }}승 | {{ losses }}패 | {{ draws }}무</span>
-  </div>
+
+    <!-- 승패무Count -->
+    <div class="alert alert-primary" role="alert"
+      style="width:50%; margin: 0 auto; display: flex; justify-content: center; text-align: center;">
+      <span>{{ wins }}승 | {{ losses }}패 | {{ draws }}무</span>
+    </div>
   </div>
 
   <!-- 결과 표 클래스, 첫 행을 제외한 나머지는 databas.db 의 game_result 에서 가져올것 -->
-  <table class="table table-striped" style="width: 50%; margin: 0 auto">
-    <thead>
-      <tr>
-        <th scope="col">게임번호</th>
-        <th scope="col">컴퓨터</th>
-        <th scope="col">사용자</th>
-        <th scope="col">결과</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>가위</td>
-        <td>바위</td>
-        <td>승</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>바위</td>
-        <td>가위</td>
-        <td>패</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>바위</td>
-        <td>보</td>
-        <td>승</td>
-      </tr>
-    </tbody>
-  </table>
+  <div style="overflow:scroll; width:50%; height:400px; display:  flex; justify-content: center; margin: 0 auto;">
+    <table class="table table-striped" style="width: 100%; margin: 0 auto">
+      <thead>
+        <tr>
+          <th scope="col">게임번호</th>
+          <th scope="col">컴퓨터</th>
+          <th scope="col">사용자</th>
+          <th scope="col">결과</th>
+        </tr>
+      </thead>
+      <tbody id="game_results">
+        {% for result in results %}
+        <tr>
+          <th scope="row">{{ result.index }}</th>
+          <td>{{ result.com }}</td>
+          <td>{{ result.user }}</td>
+          <td>{{ result.result }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
   <!-- 부트스트랩 자바스크립트 CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

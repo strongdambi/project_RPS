@@ -12,33 +12,38 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 #  가독성을 위해 db 위치 이동
+
+
 class GameResult(db.Model):
     index = db.Column(db.Integer, primary_key=True)
     com = db.Column(db.String, nullable=False)
     user = db.Column(db.String, nullable=False)
     result = db.Column(db.String, nullable=False)
 
+
 with app.app_context():
     db.create_all()
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    user_choice = None
-    com_choice = None
-    result = None
-    
+    user_choice = ""
+    com_choice = ""
+    result = ""
+
     if request.method == 'POST':
         user_choice = request.form['user_choice']  # 선택한 값(클릭)을 form 데이터에서 가져옴
         result, com_choice = game(user_choice)
 
     results = GameResult.query.all()
-    
+
     # 승무패 카운트
     wins = GameResult.query.filter_by(result='승').count()
     draws = GameResult.query.filter_by(result='무').count()
     losses = GameResult.query.filter_by(result='패').count()
 
     return render_template('index.html', results=results, wins=wins, draws=draws, losses=losses, user_choice=user_choice, com_choice=com_choice, result=result)
+
 
 def game(user):
     # 가위바위보
@@ -63,11 +68,13 @@ def game(user):
         new_index = max_index + 1
 
 # 지정 인덱스로 결과 입력
-        new_game_result = GameResult(index=new_index, com=com, user=user, result=result)
+        new_game_result = GameResult(
+            index=new_index, com=com, user=user, result=result)
         db.session.add(new_game_result)
         db.session.commit()
 
     return result, com
-    
+
+
 if __name__ == "__main__":
     app.run()
