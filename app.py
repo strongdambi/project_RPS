@@ -24,6 +24,7 @@ with app.app_context():
 @app.route('/')
 def home():
     results = GameResult.query.all()
+    
     # 승무패 카운트
     wins = GameResult.query.filter_by(result='승').count()
     draws = GameResult.query.filter_by(result='무').count()
@@ -34,15 +35,14 @@ def home():
 @app.route('/play', methods=['POST'])
 def play():
     user_choice = request.form['user_choice']  # 선택한 값(클릭)을 form 데이터에서 가져옴
-    result = game(user_choice)
-
+    result, com_choice = game(user_choice)
     # 테이블에서 모든 데이터를 가져온 후 승무패 카운트
-    results = GameResult.query.all()
+    # result = GameResult.query.all()
     wins = GameResult.query.filter_by(result='승').count()
     draws = GameResult.query.filter_by(result='무').count()
     losses = GameResult.query.filter_by(result='패').count()
 
-    return render_template('index.html', results=results, wins=wins, draws=draws, losses=losses)
+    return render_template('index.html', result=result, wins=wins, draws=draws, losses=losses, user_choice=user_choice, com_choice=com_choice)
 
 def game(user):
     # 가위바위보
@@ -71,5 +71,7 @@ def game(user):
         db.session.add(new_game_result)
         db.session.commit()
 
+    return result, com
+    
 if __name__ == "__main__":
     app.run()
