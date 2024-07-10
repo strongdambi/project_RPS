@@ -1,4 +1,4 @@
-# project_RPS
+# project RPS
 
 ### Project discription
 This project is a rock-paper-scissors game web application. Users can select rock, paper, or scissors to play against the computer. The results are saved in a database and users can view the game results with the count of wins, losses, and draws.
